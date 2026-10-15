@@ -12,7 +12,7 @@ import {
   Phone,
 } from "lucide-react";
 import { SHOP } from "@/lib/shop";
-import { CONTACT_FAQ, DIRECTIONS, HOURS, HOURS_NOTE } from "@/lib/content";
+import { CONTACT_FAQ, HOURS, HOURS_NOTE } from "@/lib/content";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 
@@ -96,9 +96,6 @@ export default function KontakPage() {
             <p className="mt-2 flex gap-2 text-base leading-relaxed text-neutral-300">
               <MapPin size={20} className="mt-0.5 shrink-0 text-blue-300" />
               {SHOP.address}
-            </p>
-            <p className="mt-3 text-base leading-relaxed text-neutral-300">
-              {DIRECTIONS}
             </p>
           </section>
         </Reveal>

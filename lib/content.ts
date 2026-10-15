@@ -82,9 +82,6 @@ export const HOURS = [
 export const HOURS_NOTE =
   "Jam buka bisa berubah menjelang dan saat hari raya. Cek WhatsApp untuk kepastian.";
 
-export const DIRECTIONS =
-  "Patokan lokasi: tulis di sini patokan yang mudah dikenali, misalnya dekat balai desa atau pertigaan tertentu, dan keterangan parkir.";
-
 export const CONTACT_FAQ = [
   {
     q: "Metode pembayaran apa yang diterima?",
