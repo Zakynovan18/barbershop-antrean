@@ -151,12 +151,6 @@ body {
   }
 }
 
-@keyframes barber-pole-roll {
-  to {
-    background-position-y: 42px;
-  }
-}
-
 @keyframes ping-dot {
   0% {
     box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
@@ -267,26 +261,6 @@ body {
     drop-shadow(0 0 13px rgba(248, 113, 113, 0.28));
 }
 
-.barber-lamp-window {
-  position: absolute;
-  z-index: 20;
-  top: 23%;
-  left: 39%;
-  width: 22%;
-  height: 54%;
-  overflow: hidden;
-  border-radius: 2px;
-  background: repeating-linear-gradient(
-    135deg,
-    #dc2626 0 10px,
-    #f8fafc 10px 20px,
-    #1d4ed8 20px 30px,
-    #f8fafc 30px 40px
-  );
-  background-size: 100% 42px;
-  animation: barber-pole-roll 0.9s linear infinite;
-}
-
 /* Garis bawah judul yang memanjang */
 .title-line::after {
   content: "";
@@ -375,7 +349,6 @@ body {
 
   .shimmer,
   .barber-lamp::before,
-  .barber-lamp-window,
   .glow-pulse,
   .glow-green-pulse,
   .nudge,

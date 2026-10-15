@@ -192,7 +192,6 @@ export default function HomePage() {
                   }}
                   className="relative z-10 h-full w-full object-contain"
                 />
-                <span className="barber-lamp-window" />
               </span>
             </span>
             {HERO_HEADLINE.slice(2).map((line, i) => (
