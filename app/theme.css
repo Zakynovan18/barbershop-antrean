@@ -1,0 +1,318 @@
+/* ============ TEMA GELAP + ANIMASI ============ */
+body {
+  background: #0a0a0b;
+  color: #f5f5f4;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), "Arial Narrow", Impact, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Cahaya latar yang menempel di layar */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 12% 0%, rgba(59, 130, 246, 0.12), transparent 60%),
+    radial-gradient(50% 35% at 100% 28%, rgba(239, 68, 68, 0.08), transparent 60%),
+    radial-gradient(55% 40% at 0% 100%, rgba(59, 130, 246, 0.06), transparent 60%);
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(115%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes nudge {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(7px);
+  }
+}
+
+@keyframes shine {
+
+  0%,
+  55% {
+    transform: translateX(-130%);
+  }
+
+  100% {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 22px rgba(59, 130, 246, 0.24);
+  }
+  
+  50% {
+    box-shadow: 0 0 38px rgba(59, 130, 246, 0.38);
+  }
+}
+
+@keyframes glow-green {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.28);
+  }
+
+  50% {
+    box-shadow: 0 0 34px rgba(0, 255, 0, 0.48);
+  }
+}
+
+@keyframes ping-dot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes flip-in {
+  from {
+    opacity: 0;
+    transform: translateY(-55%) rotateX(75deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Muncul saat di-scroll ---------- */
+.reveal {
+  opacity: 0;
+}
+
+.reveal.in {
+  animation-name: fade-up;
+  animation-duration: 0.85s;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation-fill-mode: both;
+  animation-delay: var(--d, 0ms);
+}
+
+.reveal[data-v="left"].in {
+  animation-name: fade-left;
+}
+
+.reveal[data-v="zoom"].in {
+  animation-name: zoom-in;
+}
+
+.reveal[data-v="fade"].in {
+  animation-name: fade-in;
+}
+
+/* ---------- Judul per baris (hero) ---------- */
+.hero-title {
+  font-size: clamp(3rem, 16vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.words .w {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.words .w>span {
+  display: inline-block;
+  transform: translateY(115%);
+  animation: word-up 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: calc(var(--i) * 130ms + 200ms);
+}
+
+/* ---------- Teks berkilau & menyala ---------- */
+.shimmer {
+  background: linear-gradient(90deg, #f8fafc 0%, #60a5fa 38%, #f87171 68%, #f8fafc 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3.2s linear infinite;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Garis bawah judul yang memanjang */
+.title-line::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 0;
+  margin-top: 0.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #3b82f6 0%, #ef4444 70%, transparent);
+  transition: width 0.9s ease 0.35s;
+}
+
+.reveal.in .title-line::after {
+  width: 72px;
+}
+
+/* ---------- Tombol & indikator ---------- */
+.glow-pulse {
+  animation: glow 2.6s ease-in-out infinite;
+}
+
+.glow-green-pulse {
+  animation: glow-green 2.6s ease-in-out infinite;
+}
+
+.cta-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(15, 23, 42, 0.16) 50%, transparent 70%);
+  transform: translateX(-130%);
+  animation: shine 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.nudge {
+  animation: nudge 1.4s ease-in-out infinite;
+}
+
+.live-dot {
+  animation: ping-dot 1.8s ease-out infinite;
+}
+
+.press {
+  transition: transform 0.15s ease;
+}
+
+.press:active {
+  transform: scale(0.97);
+}
+
+.anim-flip {
+  animation: flip-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  transform-origin: top;
+}
+
+/* ---------- Pita teks bergerak ---------- */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+/* ---------- Hormati pengaturan "kurangi gerakan" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .words .w>span {
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .shimmer,
+  .glow-pulse,
+  .glow-green-pulse,
+  .nudge,
+  .live-dot,
+  .marquee-track,
+  .anim-flip,
+  .cta-shine::after {
+    animation: none !important;
+  }
+}
