@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Barber, QueueEntry, Service } from "@/lib/types";
-import { buildSchedule, estimateForNew, todayJakarta } from "@/lib/estimate";
+import {
+  buildSchedule,
+  estimateForNew,
+  minutesUntilOpening,
+  queueDateJakarta,
+} from "@/lib/estimate";
 import type { CardData } from "@/components/BarberCards";
 
 const STORAGE_KEY = "barber_my_ticket";
@@ -22,7 +27,7 @@ export function useQueue() {
     const { data, error } = await supabase
       .from("queue_entries")
       .select("*")
-      .eq("queue_date", todayJakarta())
+      .eq("queue_date", queueDateJakarta())
       .order("ticket_number", { ascending: true });
     if (!error && data) setEntries(data as QueueEntry[]);
   }, []);
@@ -88,7 +93,13 @@ export function useQueue() {
   const servingOf = (barberId: number) =>
     entries.find((e) => e.status === "serving" && e.barber_id === barberId);
 
-  const schedule = buildSchedule(entries, services, barbers, now);
+  const schedule = buildSchedule(
+    entries,
+    services,
+    barbers,
+    now,
+    now > 0 ? minutesUntilOpening(now) : 0
+  );
 
   const cards: CardData[] = barbers.map((b) => ({
     barber: b,
@@ -146,6 +157,7 @@ export function useQueue() {
 
   const takeTicket = useCallback(
     async (customerName: string, serviceId: number, barberId: number | null) => {
+      const takenAt = Date.now();
       const { data, error } = await supabase
         .from("queue_entries")
         .insert({
@@ -154,6 +166,7 @@ export function useQueue() {
           barber_id: barberId,
           source: "online",
           status: "waiting",
+          queue_date: queueDateJakarta(takenAt),
         })
         .select()
         .single();
@@ -161,6 +174,7 @@ export function useQueue() {
       try {
         localStorage.setItem(STORAGE_KEY, data.id);
       } catch { }
+      setNow(takenAt);
       setEntries((prev) =>
         prev.some((e) => e.id === data.id)
           ? prev

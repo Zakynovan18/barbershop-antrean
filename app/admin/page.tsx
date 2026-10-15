@@ -7,8 +7,9 @@ import type { Barber, QueueEntry, Service } from "@/lib/types";
 import {
   buildSchedule,
   clock,
+  minutesUntilOpening,
+  queueDateJakarta,
   ticketLabel,
-  todayJakarta,
 } from "@/lib/estimate";
 import BarberAvatar from "@/components/BarberAvatar";
 
@@ -89,7 +90,7 @@ function Dashboard() {
     const { data } = await supabase
       .from("queue_entries")
       .select("*")
-      .eq("queue_date", todayJakarta())
+      .eq("queue_date", queueDateJakarta())
       .order("ticket_number", { ascending: true });
     if (data) setEntries(data as QueueEntry[]);
   }, []);
@@ -151,7 +152,13 @@ function Dashboard() {
       ? "Siapa saja"
       : barbers.find((b) => b.id === id)?.name ?? "-";
 
-  const schedule = buildSchedule(entries, services, barbers, now);
+  const schedule = buildSchedule(
+    entries,
+    services,
+    barbers,
+    now,
+    minutesUntilOpening(now)
+  );
   const clearMin = Math.round(
     Math.max(0, ...Object.values(schedule.freeIn))
   );
@@ -216,12 +223,14 @@ function Dashboard() {
     if (!cleanName || !walkService) return;
     setBusy(true);
     setError(null);
+    const addedAt = Date.now();
     const { error } = await supabase.from("queue_entries").insert({
       customer_name: cleanName,
       service_id: walkService,
       barber_id: walkBarber === "any" ? null : walkBarber,
       source: "walkin",
       status: "waiting",
+      queue_date: queueDateJakarta(addedAt),
     });
     setBusy(false);
     if (error) {
@@ -229,6 +238,7 @@ function Dashboard() {
       return;
     }
     setWalkName("");
+    setNow(addedAt);
     await fetchEntries();
   }
 

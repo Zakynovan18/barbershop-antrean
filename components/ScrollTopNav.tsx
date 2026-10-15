@@ -12,10 +12,15 @@ export default function ScrollTopNav() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const updateVisibility = () => setVisible(window.scrollY > 180);
-    updateVisibility();
-    window.addEventListener("scroll", updateVisibility, { passive: true });
-    return () => window.removeEventListener("scroll", updateVisibility);
+    const topBrand = document.querySelector("[data-top-brand]");
+    if (!topBrand) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(!entry.isIntersecting),
+      { rootMargin: "-56px 0px 0px 0px" }
+    );
+    observer.observe(topBrand);
+    return () => observer.disconnect();
   }, []);
 
   if (pathname.startsWith("/admin") || !visible) return null;

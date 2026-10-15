@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { SHOP } from "@/lib/shop";
 import { HERO_PHOTOS, HIGHLIGHTS, TESTIMONIALS } from "@/lib/home";
-import { ticketLabel } from "@/lib/estimate";
+import { formatWaitEstimate, ticketLabel } from "@/lib/estimate";
 import { useQueue } from "@/lib/useQueue";
 import ShopLogo from "@/components/ShopLogo";
 import LiveBoard from "@/components/LiveBoard";
@@ -109,7 +109,10 @@ export default function HomePage() {
           title: "Ambil Nomor Antrean",
           sub:
             q.waitNew > 0
-              ? `${q.waiting.length} orang menunggu · ± ${q.waitNew} menit`
+              ? `${q.waiting.length} orang menunggu · ${formatWaitEstimate(
+                  q.now,
+                  q.waitNew
+                )}`
               : "Antrean kosong, langsung dilayani",
         };
 
@@ -142,7 +145,7 @@ export default function HomePage() {
 
           <div className="flex items-center justify-between">
             <Reveal variant="fade" className="flex items-center gap-3">
-              <ShopLogo size={48} />
+              <ShopLogo size={48} topBrand />
               <span className="text-sm font-bold uppercase tracking-[0.18em]">
                 {SHOP.name}
               </span>

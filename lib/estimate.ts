@@ -1,9 +1,81 @@
 import type { Barber, QueueEntry, Service } from "./types";
+import { SHOP } from "./shop";
 
 const DEFAULT_DURATION = 30;
+const JAKARTA_OFFSET = "+07:00";
+
+function dateJakarta(now: number): string {
+  return new Date(now).toLocaleDateString("en-CA", {
+    timeZone: "Asia/Jakarta",
+  });
+}
 
 export function todayJakarta(): string {
-  return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Jakarta" });
+  return dateJakarta(Date.now());
+}
+
+function jakartaTimeMinutes(now: number): number {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Jakarta",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(now);
+  const hour = Number(parts.find((part) => part.type === "hour")?.value);
+  const minute = Number(parts.find((part) => part.type === "minute")?.value);
+  return hour * 60 + minute;
+}
+
+function addJakartaDays(date: string, days: number): string {
+  const [year, month, day] = date.split("-").map(Number);
+  const shifted = new Date(Date.UTC(year, month - 1, day + days));
+  return [
+    shifted.getUTCFullYear(),
+    String(shifted.getUTCMonth() + 1).padStart(2, "0"),
+    String(shifted.getUTCDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+export function queueDateJakarta(
+  now: number = Date.now(),
+  close: string = SHOP.close
+): string {
+  const [closeHour, closeMinute] = close.split(":").map(Number);
+  const closeAt = closeHour * 60 + closeMinute;
+  const today = dateJakarta(now);
+  return jakartaTimeMinutes(now) >= closeAt
+    ? addJakartaDays(today, 1)
+    : today;
+}
+
+export function minutesUntilOpening(
+  now: number,
+  open: string = SHOP.open,
+  close: string = SHOP.close
+): number {
+  const [openHour, openMinute] = open.split(":").map(Number);
+  const [closeHour, closeMinute] = close.split(":").map(Number);
+  const openAt = openHour * 60 + openMinute;
+  const closeAt = closeHour * 60 + closeMinute;
+  const currentTime = jakartaTimeMinutes(now);
+
+  if (currentTime >= openAt && currentTime < closeAt) return 0;
+
+  const serviceDate = queueDateJakarta(now, close);
+  const openingTimestamp = Date.parse(
+    `${serviceDate}T${open}:00${JAKARTA_OFFSET}`
+  );
+  return Math.max(0, Math.ceil((openingTimestamp - now) / 60000));
+}
+
+export function formatWaitEstimate(now: number, waitMinutes: number): string {
+  if (now <= 0 || minutesUntilOpening(now) === 0) {
+    return `± ${waitMinutes} menit`;
+  }
+
+  const nextDay = queueDateJakarta(now) !== dateJakarta(now);
+  const prefix = nextDay ? "Besok pukul" : "Pukul";
+  return `${prefix} ${clock(now + waitMinutes * 60000)} WIB`;
 }
 
 export const ticketLabel = (n: number) => `A-${String(n).padStart(2, "0")}`;
@@ -57,11 +129,12 @@ export function buildSchedule(
   entries: QueueEntry[],
   services: Service[],
   barbers: Barber[],
-  now: number
+  now: number,
+  openingDelayMinutes = 0
 ): Schedule {
   const freeIn: Record<number, number> = {};
   barbers.forEach((b) => {
-    freeIn[b.id] = 0;
+    freeIn[b.id] = openingDelayMinutes;
   });
 
   entries

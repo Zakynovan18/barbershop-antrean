@@ -1,6 +1,6 @@
 import { Clock, Users } from "lucide-react";
 import { SHOP } from "@/lib/shop";
-import { clock, ticketLabel } from "@/lib/estimate";
+import { clock, formatWaitEstimate, ticketLabel } from "@/lib/estimate";
 import type { QueueApi } from "@/lib/useQueue";
 
 export default function LiveBoard({
@@ -77,7 +77,9 @@ export default function LiveBoard({
         </span>
         <span className="flex items-center gap-2">
           <Clock size={18} className="text-blue-400" />
-          {q.waitNew > 0 ? `± ${q.waitNew} menit tunggu` : "Tanpa antre"}
+          {q.waitNew > 0
+            ? formatWaitEstimate(q.now, q.waitNew)
+            : "Tanpa antre"}
         </span>
       </div>
     </div>

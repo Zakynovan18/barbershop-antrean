@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CirclePlus } from "lucide-react";
 import BarberCards from "@/components/BarberCards";
+import { formatWaitEstimate } from "@/lib/estimate";
 import type { QueueApi } from "@/lib/useQueue";
 
 const rupiah = (n: number) => `Rp${n.toLocaleString("id-ID")}`;
@@ -119,7 +120,9 @@ export default function TakeForm({
         )}
         <p className="mt-1 text-base font-semibold text-blue-300">
           Estimasi tunggu:{" "}
-          {choiceWait > 0 ? `± ${choiceWait} menit` : "langsung dilayani"}
+          {choiceWait > 0
+            ? formatWaitEstimate(q.now, choiceWait)
+            : "langsung dilayani"}
         </p>
       </div>
 

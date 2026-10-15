@@ -15,7 +15,7 @@ export default function PageHeader({
   return (
     <header className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] px-5 pb-6 pt-5">
       <Link href="/" className="press flex items-center gap-3">
-        <ShopLogo size={40} />
+        <ShopLogo size={40} topBrand />
         <span className="text-sm font-bold uppercase tracking-[0.18em]">
           {SHOP.name}
         </span>
