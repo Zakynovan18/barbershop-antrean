@@ -22,10 +22,10 @@ const readyText = (now: number, readyIn: number) =>
 
 function statusOf(c: CardData) {
   if (c.busy)
-    return { text: "Sibuk", cls: "bg-red-500/15 text-red-300" };
+    return { text: "Sibuk", cls: "bg-red-600 text-white" };
   if (c.waiting > 0)
     return { text: "Ada antrean", cls: "bg-blue-400/15 text-blue-300" };
-  return { text: "Kosong", cls: "bg-white/10 text-neutral-300" };
+  return { text: "Kosong", cls: "bg-blue-600 text-white" };
 }
 
 const BASE =

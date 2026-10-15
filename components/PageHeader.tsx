@@ -32,7 +32,9 @@ export default function PageHeader({
           }`}
       >
         <span className="w">
-          <span style={{ "--i": 0 } as React.CSSProperties}>{title}</span>
+          <span style={{ "--i": 0 } as React.CSSProperties}>
+            <span className="shimmer">{title}</span>
+          </span>
         </span>
       </h1>
 

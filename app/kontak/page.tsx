@@ -9,6 +9,7 @@ import {
   MapPin,
   MessageCircle,
   Navigation,
+  Phone,
 } from "lucide-react";
 import { SHOP } from "@/lib/shop";
 import { CONTACT_FAQ, DIRECTIONS, HOURS, HOURS_NOTE } from "@/lib/content";
@@ -29,6 +30,15 @@ const QUICK_MESSAGES = [
     text: "Halo, saya ingin membatalkan antrean. Nama: ... Nomor: ...",
   },
 ];
+
+function WhatsAppIcon() {
+  return (
+    <span className="relative flex h-6 w-6 items-center justify-center" aria-hidden="true">
+      <MessageCircle className="absolute inset-0 h-6 w-6" strokeWidth={2.2} />
+      <Phone className="h-3 w-3" strokeWidth={2.6} />
+    </span>
+  );
+}
 
 export default function KontakPage() {
   const [today, setToday] = useState("");
@@ -65,9 +75,9 @@ export default function KontakPage() {
               href={wa("Halo, saya ingin bertanya.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-2xl bg-white py-4 text-base font-bold text-neutral-950 transition-colors hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+              className="flex items-center justify-center gap-2 rounded-2xl bg-[#00FF00] py-4 text-base font-bold text-neutral-950 transition-colors hover:bg-[#00E600] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00FF00] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
             >
-              <MessageCircle size={20} /> WhatsApp
+              <WhatsAppIcon /> WhatsApp
             </a>
             <a
               href={SHOP.mapsUrl}

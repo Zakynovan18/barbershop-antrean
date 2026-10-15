@@ -6,9 +6,9 @@ export const SHOP = {
   open: "09:00",
   close: "21:00",
   openDays: "Setiap hari",
-  address: "Alamat lengkap barbershop, Desa ..., Kec. ..., Kab. ...",
-  mapsUrl: "https://maps.google.com/?q=nama+barbershop",
-  whatsapp: "6281234567890", // format internasional, tanpa + atau spasi
+  address: "JL. Tani Sentosa RT 01/RW 04, Desa Kedungglugu, Kecamatan Gondang, Kabupaten Nganjuk",
+  mapsUrl: "https://maps.app.goo.gl/95VTKBBXo91q88AEA?g_st=ac",
+  whatsapp: "6281358714035", // format internasional, tanpa + atau spasi
   instagram: "", // contoh: "https://instagram.com/namabarber"
   tiktok: "",
   email: "",
