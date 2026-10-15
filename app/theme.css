@@ -261,6 +261,46 @@ body {
     drop-shadow(0 0 13px rgba(248, 113, 113, 0.28));
 }
 
+.barber-lamp-stripes {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  background: #08090c;
+  mask-image: url("/images/decor/barbershop-stripes-mask.png");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("/images/decor/barbershop-stripes-mask.png");
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+}
+
+.barber-lamp-stripes::after {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    120deg,
+    #2563eb -19.46px -14.08px,
+    #f8fafc -14.08px -8.70px,
+    #dc2626 -8.70px -3.32px,
+    #f8fafc -3.32px 2.06px
+  );
+  content: "";
+  animation: barber-pole-roll 1.15s linear infinite;
+}
+
+@keyframes barber-pole-roll {
+  to {
+    background-position: 0 21.52px;
+  }
+}
+
 /* Garis bawah judul yang memanjang */
 .title-line::after {
   content: "";
@@ -349,6 +389,7 @@ body {
 
   .shimmer,
   .barber-lamp::before,
+  .barber-lamp-stripes::after,
   .glow-pulse,
   .glow-green-pulse,
   .nudge,
