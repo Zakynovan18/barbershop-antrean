@@ -162,7 +162,7 @@ export default function HomePage() {
 
           <h1 className="words font-display hero-title mt-7">
             <span className="flex items-center">
-              <span className="min-w-0 flex-1">
+              <span className="min-w-0 flex-[0_0_54%]">
                 {HERO_HEADLINE.slice(0, 2).map((line, i) => (
                   <span key={line} className="w">
                     <span
@@ -176,7 +176,7 @@ export default function HomePage() {
               </span>
               <span
                 aria-hidden="true"
-                className="barber-lamp -ml-1 mr-1 h-36 w-24 shrink-0"
+                className="barber-lamp -ml-2 h-32 w-[40%] shrink-0"
               >
                 <Image
                   src="/images/decor/barbershop.png"

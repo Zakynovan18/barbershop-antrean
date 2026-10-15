@@ -151,6 +151,12 @@ body {
   }
 }
 
+@keyframes barber-lamp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes ping-dot {
   0% {
     box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
@@ -237,6 +243,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 9rem;
 }
 
 .barber-lamp::before {
@@ -258,6 +265,7 @@ body {
   filter:
     drop-shadow(0 0 7px rgba(96, 165, 250, 0.55))
     drop-shadow(0 0 13px rgba(248, 113, 113, 0.28));
+  animation: barber-lamp-spin 8s linear infinite;
 }
 
 /* Garis bawah judul yang memanjang */
@@ -348,6 +356,7 @@ body {
 
   .shimmer,
   .barber-lamp::before,
+  .barber-lamp img,
   .glow-pulse,
   .glow-green-pulse,
   .nudge,
