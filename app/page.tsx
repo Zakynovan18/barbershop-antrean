@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BadgeCheck,
@@ -160,13 +161,44 @@ export default function HomePage() {
           </div>
 
           <h1 className="words font-display hero-title mt-7">
-            {HERO_HEADLINE.map((line, i) => (
+            <span className="flex items-center">
+              <span className="min-w-0 flex-1">
+                {HERO_HEADLINE.slice(0, 2).map((line, i) => (
+                  <span key={line} className="w">
+                    <span
+                      style={{ "--i": i } as React.CSSProperties}
+                      className="text-white"
+                    >
+                      {line}
+                    </span>
+                  </span>
+                ))}
+              </span>
+              <span
+                aria-hidden="true"
+                className="barber-lamp -ml-1 mr-1 h-36 w-24 shrink-0"
+              >
+                <Image
+                  src="/images/decor/barbershop.png"
+                  alt=""
+                  width={160}
+                  height={240}
+                  priority
+                  onError={(event) => {
+                    event.currentTarget.parentElement?.setAttribute(
+                      "hidden",
+                      ""
+                    );
+                  }}
+                  className="relative z-10 h-full w-full object-contain"
+                />
+              </span>
+            </span>
+            {HERO_HEADLINE.slice(2).map((line, i) => (
               <span key={line} className="w">
                 <span
-                  style={{ "--i": i } as React.CSSProperties}
-                  className={
-                    i === HERO_HEADLINE.length - 1 ? "shimmer" : "text-white"
-                  }
+                  style={{ "--i": i + 2 } as React.CSSProperties}
+                  className={i === HERO_HEADLINE.length - 3 ? "shimmer" : "text-white"}
                 >
                   {line}
                 </span>
