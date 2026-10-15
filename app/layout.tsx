@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Plus_Jakarta_Sans } from "next/font/google";
 import BottomNav from "@/components/BottomNav";
+import ScrollTopNav from "@/components/ScrollTopNav";
 import "./globals.css";
 import "./theme.css";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
     <html lang="id" className={`${display.variable} ${body.variable}`}>
       <body className="antialiased">
         <div className="ambient" aria-hidden="true" />
+        <ScrollTopNav />
         {children}
         <BottomNav />
       </body>
