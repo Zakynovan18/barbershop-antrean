@@ -151,9 +151,9 @@ body {
   }
 }
 
-@keyframes barber-lamp-spin {
+@keyframes barber-pole-roll {
   to {
-    transform: rotate(360deg);
+    background-position-y: 42px;
   }
 }
 
@@ -265,7 +265,26 @@ body {
   filter:
     drop-shadow(0 0 7px rgba(96, 165, 250, 0.55))
     drop-shadow(0 0 13px rgba(248, 113, 113, 0.28));
-  animation: barber-lamp-spin 8s linear infinite;
+}
+
+.barber-lamp-window {
+  position: absolute;
+  z-index: 20;
+  top: 23%;
+  left: 39%;
+  width: 22%;
+  height: 54%;
+  overflow: hidden;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    135deg,
+    #dc2626 0 10px,
+    #f8fafc 10px 20px,
+    #1d4ed8 20px 30px,
+    #f8fafc 30px 40px
+  );
+  background-size: 100% 42px;
+  animation: barber-pole-roll 0.9s linear infinite;
 }
 
 /* Garis bawah judul yang memanjang */
@@ -356,7 +375,7 @@ body {
 
   .shimmer,
   .barber-lamp::before,
-  .barber-lamp img,
+  .barber-lamp-window,
   .glow-pulse,
   .glow-green-pulse,
   .nudge,
