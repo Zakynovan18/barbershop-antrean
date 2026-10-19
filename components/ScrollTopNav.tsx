@@ -33,7 +33,7 @@ export default function ScrollTopNav() {
       <div className="mx-auto flex max-w-md items-center justify-between gap-2">
         <Link href="/" className="press flex min-w-0 shrink items-center gap-2">
           <ShopLogo size={32} />
-          <span className="truncate text-xs font-extrabold uppercase tracking-[0.12em] text-white">
+          <span className="truncate text-xs font-extrabold tracking-[0.12em] text-white">
             {SHOP.name}
           </span>
         </Link>

@@ -1,5 +1,5 @@
 export const SHOP = {
-  name: "MASYAT Barber",
+  name: "Arifz.cut",
   tagline: "Rapi, cepat, tanpa antre lama",
   logo: "", // contoh: "/images/logo.png"
   heroImage: "", // contoh: "/images/hero.jpg"

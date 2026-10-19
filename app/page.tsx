@@ -147,7 +147,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between">
             <Reveal variant="fade" className="flex items-center gap-3">
               <ShopLogo size={48} topBrand />
-              <span className="text-sm font-bold uppercase tracking-[0.18em]">
+              <span className="text-sm font-bold tracking-[0.18em]">
                 {SHOP.name}
               </span>
             </Reveal>

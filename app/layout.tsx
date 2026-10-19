@@ -20,7 +20,7 @@ const body = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MASYAT Barber",
+  title: "Arifz.cut",
   description: "Ambil nomor antrean dan pantau giliranmu secara langsung.",
 };
 
